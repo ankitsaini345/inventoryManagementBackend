@@ -45,12 +45,26 @@ async function getAllRecord(table, query = {}) {
     finally { await client.close(); }
 };
 
+async function getDistinctRecord(table, field, query = {}) {
+    let client = new MongoClient(connectionString);
+    try {
+        client = await client.connect();
+        const data = await client.db(dbName).collection(table).distinct(field);
+        // console.log(data);
+        return data;
+    } catch (err) {
+        console.log('Error in getDistinctRecord', err);
+        return { error: true, msg: err.message }
+    }
+    finally { await client.close(); }
+};
+
 async function insertOneRecord(table, data) {
     let client = new MongoClient(connectionString);
     try {
         client = await client.connect();
         const res = await client.db(dbName).collection(table).insertOne(data);
-        // console.log(res);
+        console.log(res);
         return res;
     } catch (err) {
         console.log('Error in insertOneRecord', err);
@@ -78,7 +92,7 @@ async function deleteOneRecord(table, query) {
     try {
         client = await client.connect();
         const res = await client.db(dbName).collection(table).deleteOne(query)
-        // console.log(res);
+        console.log(res);
         return res;
     } catch (err) {
         console.log('Error in deleteOneRecord', err);
@@ -105,7 +119,7 @@ async function updateRecord(table, recordToUpdate, updatedValue) {
     let client = new MongoClient(connectionString);
     try {
         client = await client.connect();
-        const res = await client.db(dbName).collection(table).updateOne(recordToUpdate, {$set: updatedValue}, { upsert: true });
+        const res = await client.db(dbName).collection(table).updateOne(recordToUpdate, { $set: updatedValue }, { upsert: true });
         // console.log(res);
         return res;
     } catch (err) {
@@ -119,6 +133,7 @@ module.exports = {
     listDB,
     getAllRecord,
     getOneRecord,
+    getDistinctRecord,
     insertOneRecord,
     insertMultipleRecord,
     deleteOneRecord,

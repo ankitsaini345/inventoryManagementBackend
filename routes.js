@@ -7,7 +7,8 @@ function appStatus(req,res) {
         requesHeaders: req.headers,
         requestBody: req.body,
         requestCookies: req.cookies,
-        requestUrl: req.url
+        requestUrl: req.url,
+        query: req.query
       });
 }
 router.route('/').get(appStatus).post(appStatus);
@@ -16,6 +17,7 @@ router.get('/listdb', controller.listDBRoute);
 
 router.get('/orders', controller.getOrders);
 router.get('/orders/:id', controller.getOrder);
+router.get('/orders/unique/:field', controller.getDistictOrder);
 router.post('/orders', controller.addOrder);
 router.put('/orders/:id', controller.editOrder);
 router.delete('/orders/:id', controller.deleteOrder);

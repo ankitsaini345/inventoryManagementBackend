@@ -17,6 +17,16 @@ async function getOrder(req, res) {
         return res.status(500).json(result);
     } else return res.status(200).json(result)
 }
+
+async function getDistictOrder(req, res) {
+    const field = req.params.field
+    const result = await mongo.getDistinctRecord('orders', field);
+    if (!result) return res.json({});
+    if (result.error) {
+        return res.status(500).json(result);  
+    } else return res.status(200).json(result)
+}
+
 async function getOrders(req, res) {
     const result = await mongo.getAllRecord('orders');
     if (!result) return res.json({});
@@ -97,10 +107,10 @@ async function editCard(req, res) {
 async function getTxn(req, res) {
     let query;
     if (req.query.id) query = { _id: new objectId(req.query.id) }
-    else if (req.query.cname) query = { cardName: req.params.cardName }
+    else if (req.params.cname) query = { cardName: req.params.cname }
     else return res.status(400).json({ error: true, msg: 'missing parameters' });
 
-    const result = await mongo.getOneRecord('transactions', query);
+    const result = await mongo.getAllRecord('transactions', query);
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
@@ -145,6 +155,7 @@ module.exports = {
     getOrder,
     getOrders,
     addOrder,
+    getDistictOrder,
     deleteOrder,
     editOrder,
     getCard,
