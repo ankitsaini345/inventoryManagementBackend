@@ -9,17 +9,17 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// app.get('/', (req, res) => {
-//     res.status(200).send('Application is Running!');
-// })
+app.get('/', (req, res) => {
+    res.status(200).send('Application is Running!');
+})
 
 app.use(config.baseUrl, routes);
 
-app.use(express.static(path.join(__dirname, 'frontend', 'dist', 'inventory-management')));
+// app.use(express.static(path.join(__dirname, 'frontend', 'dist', 'inventory-management')));
 
-app.all('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend', 'dist', 'inventory-management', 'index.html'))
-});
+// app.all('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'frontend', 'dist', 'inventory-management', 'index.html'))
+// });
 
 const port = config.port || 4000;
 app.listen(port, (err) => {
