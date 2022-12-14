@@ -34,4 +34,9 @@ router.post('/txns', controller.addTxn);
 router.put('/txns/:id', controller.editTxn);
 router.delete('/txns/:id', controller.deleteTxn);
 
+router.get('/getenv', (req,res) => {
+  console.log('/getenv route');
+  res.status(200).json(process.env);
+})
+
 module.exports = router;
