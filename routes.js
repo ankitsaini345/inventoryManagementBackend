@@ -1,6 +1,7 @@
 const router = require('express').Router();
-
 const controller = require('./controller');
+const auth = require('./auth/auth.controller');
+
 function appStatus(req,res) {
     res.status(200).json({
         status: 'application route is working.',
@@ -12,7 +13,13 @@ function appStatus(req,res) {
       });
 }
 router.route('/').get(appStatus).post(appStatus);
-  
+router.post('/login', auth.login);
+router.post('/signup', auth.signup);
+
+router.use(auth.verifyToken);
+
+router.get('/refresh', auth.refreshToken);
+
 router.get('/listdb', controller.listDBRoute);
 
 router.get('/orders', controller.getOrders);

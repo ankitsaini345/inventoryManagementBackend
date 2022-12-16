@@ -6,6 +6,10 @@ const config = {
     mongo: {
         uriString: process.env.MONGO_URI,
         dbName: 'inventory'
+    },
+    jwt: {
+        secret: process.env.JWT_SECRET,
+        expiry: 86400 // 24 hours
     }
 }
 
