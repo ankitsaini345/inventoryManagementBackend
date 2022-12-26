@@ -66,12 +66,17 @@ async function signup(req, res) {
 }
 
 function verifyToken(req, res, next) {
-    const token = req.headers['Authorization'];
+    const tokenHeader = req.headers['authorization'];
 
-    if (!token) return res.status(400).json({
-        error: true,
-        message: 'Bad Request!! Missing Auth token header.'
-    });
+    if (!tokenHeader) {
+        res.setHeader('WWW-Authenticate', 'Basic');
+        return res.status(401).json({
+            error: true,
+            message: 'Bad Request!! Missing Auth token header.'
+        });
+    }
+
+    const token = tokenHeader.split(' ')[1];
 
     try {
         const payload = jwt.verify(token, config.jwt.secret)
@@ -95,12 +100,18 @@ function verifyToken(req, res, next) {
 }
 
 function refreshToken(req, res) {
-    const token = req.headers['Authorization'];
+    const tokenHeader = req.headers['authorization'];
 
-    if (!token) return res.status(400).json({
-        error: true,
-        message: 'Bad Request!! Missing Auth token header.'
-    });
+    if (!tokenHeader) {
+        res.setHeader('WWW-Authenticate', 'Basic');
+        return res.status(401).json({
+            error: true,
+            message: 'Bad Request!! Missing Auth token header.'
+        });
+    }
+
+    const token = tokenHeader.split(' ')[1];
+    
 
     try {
         let payload = jwt.decode(token, config.jwt.secret);
