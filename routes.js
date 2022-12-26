@@ -30,7 +30,7 @@ router.put('/orders/:id', controller.editOrder);
 router.delete('/orders/:id', controller.deleteOrder);
 
 router.get('/cards', controller.getCards);
-router.get('/cards/:id', controller.getCard);
+router.get('/cards/name', controller.getCard);
 router.post('/cards', controller.addCard);
 router.put('/cards/:id', controller.editCard);
 router.delete('/cards/:id', controller.deleteCard);

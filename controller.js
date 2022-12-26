@@ -63,7 +63,7 @@ async function editOrder(req, res) {
 }
 
 async function getCard(req, res) {
-    const query = { _id: req.params.id }
+    const query = { cardName: req.params.name }
     const result = await mongo.getOneRecord('cards', query);
     if (!result) return res.json({});
     if (result.error) {
