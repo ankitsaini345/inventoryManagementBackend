@@ -16,9 +16,9 @@ router.route('/').get(appStatus).post(appStatus);
 router.post('/login', auth.login);
 router.post('/signup', auth.signup);
 
-router.use(auth.verifyToken);
-
 router.get('/refresh', auth.refreshToken);
+
+router.use(auth.verifyToken);
 
 router.get('/listdb', controller.listDBRoute);
 
@@ -30,7 +30,7 @@ router.put('/orders/:id', controller.editOrder);
 router.delete('/orders/:id', controller.deleteOrder);
 
 router.get('/cards', controller.getCards);
-router.get('/cards/name', controller.getCard);
+router.get('/cards/:name', controller.getCard);
 router.post('/cards', controller.addCard);
 router.put('/cards/:id', controller.editCard);
 router.delete('/cards/:id', controller.deleteCard);
