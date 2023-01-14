@@ -3,6 +3,7 @@ const cors = require('cors')
 const path = require('path')
 const config = require('./config/config')
 const routes = require('./routes')
+require( 'console-stamp' )( console );
 
 const app = express()
 app.use(cors())

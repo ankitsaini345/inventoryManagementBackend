@@ -12,6 +12,12 @@ function appStatus(req,res) {
         query: req.query
       });
 }
+
+router.use((req, res, next) => {
+  console.log(req.method + ' ' + req.url);
+  next();
+})
+
 router.route('/').get(appStatus).post(appStatus);
 router.post('/login', auth.login);
 router.post('/signup', auth.signup);
