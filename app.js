@@ -4,12 +4,14 @@ const path = require('path')
 const config = require('./config/config')
 const routes = require('./routes')
 require( 'console-stamp' )( console );
+const morganBody = require('morgan-body');
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+morganBody(app);
 app.get('/', (req, res) => {
     res.status(200).send('Application is Running!');
 })
