@@ -35,7 +35,7 @@ async function getAllRecord(table, query = {}) {
     let client = new MongoClient(connectionString);
     try {
         client = await client.connect();
-        const data = await client.db(dbName).collection(table).find(query).toArray();
+        const data = await client.db(dbName).collection(table).find(query, { returnDocument: 'after'}).toArray();
         // console.log(data);
         return data;
     } catch (err) {

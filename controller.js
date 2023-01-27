@@ -23,7 +23,7 @@ async function getDistictOrder(req, res) {
     const result = await mongo.getDistinctRecord('orders', field);
     if (!result) return res.json({});
     if (result.error) {
-        return res.status(500).json(result);  
+        return res.status(500).json(result);
     } else return res.status(200).json(result)
 }
 
@@ -59,7 +59,7 @@ async function editOrder(req, res) {
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
-    } else return res.status(204).json(result)
+    } else return res.status(201).json(result)
 }
 
 async function getCard(req, res) {
@@ -101,7 +101,7 @@ async function editCard(req, res) {
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
-    } else return res.status(204).json(result)
+    } else return res.status(201).json(result)
 }
 
 async function getTxn(req, res) {
@@ -147,7 +147,7 @@ async function editTxn(req, res) {
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
-    } else return res.status(204).json(result)
+    } else return res.status(201).json(result)
 }
 
 module.exports = {
