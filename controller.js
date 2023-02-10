@@ -150,6 +150,74 @@ async function editTxn(req, res) {
     } else return res.status(201).json(result)
 }
 
+async function getPayments(req, res) {
+    const result = await mongo.getAllRecord('payments');
+    if (!result) return res.json({});
+    if (result.error) {
+        return res.status(500).json(result);
+    } else return res.status(200).json(result)
+}
+
+async function addPayment(req, res) {
+    const result = await mongo.insertOneRecord('payments', req.body);
+    if (!result) return res.json({});
+    if (result.error) {
+        return res.status(500).json(result);
+    } else return res.status(201).json(result)
+}
+
+async function deletePayment(req, res) {
+    const query = { _id: req.params.id }
+    const result = await mongo.deleteOneRecord('payments', query);
+    if (!result) return res.json({});
+    if (result.error) {
+        return res.status(500).json(result);
+    } else return res.status(202).json(result)
+}
+
+async function editPayment(req, res) {
+    const query = { _id: req.params.id }
+    const result = await mongo.updateRecord('payments', query, req.body);
+    if (!result) return res.json({});
+    if (result.error) {
+        return res.status(500).json(result);
+    } else return res.status(201).json(result)
+}
+
+async function getPayees(req, res) {
+    const result = await mongo.getAllRecord('payments');
+    if (!result) return res.json({});
+    if (result.error) {
+        return res.status(500).json(result);
+    } else return res.status(200).json(result)
+}
+
+async function addPayee(req, res) {
+    const result = await mongo.insertOneRecord('payments', req.body);
+    if (!result) return res.json({});
+    if (result.error) {
+        return res.status(500).json(result);
+    } else return res.status(201).json(result)
+}
+
+async function deletePayee(req, res) {
+    const query = { _id: req.params.id }
+    const result = await mongo.deleteOneRecord('payments', query);
+    if (!result) return res.json({});
+    if (result.error) {
+        return res.status(500).json(result);
+    } else return res.status(202).json(result)
+}
+
+async function editPayee(req, res) {
+    const query = { _id: req.params.id }
+    const result = await mongo.updateRecord('payments', query, req.body);
+    if (!result) return res.json({});
+    if (result.error) {
+        return res.status(500).json(result);
+    } else return res.status(201).json(result)
+}
+
 module.exports = {
     listDBRoute,
     getOrder,
@@ -167,5 +235,13 @@ module.exports = {
     getTxns,
     addTxn,
     deleteTxn,
-    editTxn
+    editTxn,
+    getPayments,
+    addPayment,
+    editPayment,
+    deletePayment,
+    getPayees,
+    addPayee,
+    editPayee,
+    deletePayee
 }

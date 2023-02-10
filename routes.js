@@ -47,6 +47,16 @@ router.post('/txns', controller.addTxn);
 router.put('/txns/:id', controller.editTxn);
 router.delete('/txns/:id', controller.deleteTxn);
 
+router.get('/payees', controller.getPayees);
+router.post('/payees', controller.addPayee);
+router.put('/payees/:id', controller.editPayee);
+router.delete('/payees/:id', controller.deletePayee);
+
+router.get('/payments', controller.getPayments);
+router.post('/payments', controller.addPayment);
+router.put('/payments/:id', controller.editPayment);
+router.delete('/payments/:id', controller.deletePayment);
+
 router.get('/getenv', (req,res) => {
   console.log('/getenv route');
   res.status(200).json(process.env);
