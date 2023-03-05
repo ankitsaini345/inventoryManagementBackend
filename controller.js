@@ -37,7 +37,7 @@ async function getDistictOrder(req, res) {
 }
 
 async function getOrders(req, res) {
-    const result = await mongo.getAllRecord(table.orders);
+    const result = await mongo.getAllRecord(table.orders, {}, { date: -1 });
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
@@ -80,7 +80,7 @@ async function getCard(req, res) {
     } else return res.status(200).json(result)
 }
 async function getCards(req, res) {
-    const result = await mongo.getAllRecord(table.cards);
+    const result = await mongo.getAllRecord(table.cards, {}, { cardName: 1 });
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
@@ -126,7 +126,7 @@ async function getTxn(req, res) {
     } else return res.status(200).json(result)
 }
 async function getTxns(req, res) {
-    const result = await mongo.getAllRecord(table.transactions);
+    const result = await mongo.getAllRecord(table.transactions, {}, { txnDate: -1 });
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
@@ -160,7 +160,7 @@ async function editTxn(req, res) {
 }
 
 async function getPayments(req, res) {
-    const result = await mongo.getAllRecord(table.payments);
+    const result = await mongo.getAllRecord(table.payments, {}, { date: -1 });
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
