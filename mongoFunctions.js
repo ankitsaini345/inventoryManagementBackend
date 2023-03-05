@@ -31,11 +31,17 @@ async function getOneRecord(table, query = {}) {
     finally { await client.close(); }
 };
 
-async function getAllRecord(table, query = {}) {
+async function getAllRecord(table, query = {}, sortQuery) {
     let client = new MongoClient(connectionString);
     try {
         client = await client.connect();
-        const data = await client.db(dbName).collection(table).find(query, { returnDocument: 'after'}).toArray();
+        let data;
+        if (sortQuery) {
+            data = await client.db(dbName).collection(table).find(query, { returnDocument: 'after' }).sort(sortQuery).toArray();
+        }
+        else {
+            data = await client.db(dbName).collection(table).find(query, { returnDocument: 'after' }).toArray();
+        }
         // console.log(data);
         return data;
     } catch (err) {
