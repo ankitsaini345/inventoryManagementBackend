@@ -1,21 +1,34 @@
 {
-  "name": "mongo-crud",
+  "name": "inventory_backend",
   "version": "1.0.0",
-  "description": "mongo crud",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "ankitsaini345@gmail.com",
-  "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "console-stamp": "^3.1.0",
+    "bcrypt": "^3.0.5",
+    "config": "^3.0.1",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
+    "debug": "^4.1.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.16.4",
+    "express-async-errors": "^3.1.1",
+    "fawn": "^2.1.5",
+    "helmet": "^3.15.1",
+    "jest": "^24.5.0",
+    "joi": "^17.10.1",
+    "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^4.11.0",
-    "morgan-body": "^2.6.8"
-  }
+    "lodash": "^4.17.21",
+    "moment": "^2.24.0",
+    "mongoose": "^7.5.0",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.3",
+    "supertest": "^4.0.2",
+    "winston": "^2.4.0",
+    "winston-mongodb": "^3.0.0"
+  },
+  "author": "ankitsaini345@gmail.com",
+  "license": "ISC"
 }

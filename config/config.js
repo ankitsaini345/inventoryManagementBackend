@@ -4,8 +4,7 @@ const config = {
     port: 3000,
     baseUrl: '/api',
     mongo: {
-        uriString: process.env.MONGO_URI,
-        dbName: 'inventory'
+        uriString: process.env.MONGO_URI
     },
     jwt: {
         secret: process.env.JWT_SECRET,

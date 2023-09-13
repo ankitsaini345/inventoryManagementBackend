@@ -1,31 +1,13 @@
-const express = require('express')
-const cors = require('cors')
-const path = require('path')
-const config = require('./config/config')
-const routes = require('./routes')
-require( 'console-stamp' )( console );
-const morganBody = require('morgan-body');
+const winston = require('winston');
+const express = require('express');
+const app = express();
 
-const app = express()
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
 
-morganBody(app);
-app.get('/', (req, res) => {
-    res.status(200).send('Application is Running!');
-})
+require('./startup/logging')();
+require('./startup/db')();
+require('./startup/routes')(app);
+require('./startup/validation')();
 
-app.use(config.baseUrl, routes);
 
-// app.use(express.static(path.join(__dirname, 'frontend', 'dist', 'inventory-management')));
-
-// app.all('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'frontend', 'dist', 'inventory-management', 'index.html'))
-// });
-
-const port = config.port || 4000;
-app.listen(port, (err) => {
-    if (err) console.log('Error in Running Server: ' + err);
-    console.log('Application is running at port: ' + port);
-})
+const port = process.env.PORT || 3000;
+const server = app.listen(port, () => winston.info(`Listening on port ${port}...`));

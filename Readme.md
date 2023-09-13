@@ -1,2 +1,0 @@
-## ToDo
-Add try catch
