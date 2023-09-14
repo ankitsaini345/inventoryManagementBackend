@@ -33,15 +33,13 @@ router.post("/login", async (req, res) => {
 
   delete user.password;
 
-  const authToken = jwt.sign(
-    { email: user.email, roles: JSON.stringify(user.roles) },
-    config.jwt.secret,
-    { expiresIn: config.jwt.expiry }
-  );
+  const payload = { email: user.email, roles: JSON.stringify(user.roles) };
+
+  const authToken = generateAuthToken(payload);
 
   return res.status(200).json({
     authToken,
-    userId: user.email
+    userId: user.email,
   });
 });
 

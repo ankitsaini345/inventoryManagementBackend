@@ -1,17 +1,23 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
+const jwt = require("jsonwebtoken");
+const config = require("../config/config");
+
+const generateAuthToken = (payload) => {
+  return jwt.sign(payload, config.jwt.secret, { expiresIn: config.jwt.expiry });
+};
 
 const userSchema = mongoose.Schema({
   name: String,
   email: String,
   password: String,
   roles: {
-    type : Array,
-    default: []
+    type: Array,
+    default: [],
   },
   active: {
     type: Boolean,
-    default: false
+    default: false,
   },
 });
 
@@ -36,4 +42,5 @@ const User = mongoose.model("user", userSchema);
 module.exports = {
   User,
   validateUser,
+  generateAuthToken,
 };

@@ -2,40 +2,25 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
 module.exports = function (req, res, next) {
-  console.log(req.method, req.originalUrl);
-  const tokenHeader = req.headers["authorization"];
-  if (!tokenHeader) {
+  const token = req.headers["authorization"];
+  if (!token) {
     res.setHeader("WWW-Authenticate", "Basic");
-    return res.status(401).json({
-      error: true,
-      message: "Bad Request!! Missing Auth token header.",
-    });
+    return res.status(400).json("Bad Request!! Missing Auth token header.");
   }
-  const token = tokenHeader.split(" ")[1];
 
   try {
     const payload = jwt.verify(token, config.jwt.secret);
     req.user = {
       email: payload.email,
-      roles: JSON.parse(payload.roles),
+      roles: payload.roles,
     };
     next();
   } catch (err) {
     if (err instanceof jwt.TokenExpiredError)
-      return res.status(401).json({
-        error: true,
-        message: err.message,
-        expiredToken: true,
-      });
+      return res.status(401).json('Auth Token Expired');
     else if (err instanceof jwt.JsonWebTokenError)
-      return res.status(401).json({
-        error: true,
-        message: err.message,
-      });
+      return res.status(401).json('Auth Token Error');
     else
-      return res.status(500).json({
-        error: true,
-        message: err.message,
-      });
+      return res.status(500).json('Error in Verifying Token. Please login again');
   }
 };
