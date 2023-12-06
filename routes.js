@@ -26,6 +26,10 @@ router.get('/refresh', auth.refreshToken);
 
 router.use(auth.verifyToken);
 
+
+router.get('/geteditdetail', controller.getLastEditDetails);
+router.put('/updateeditdetail/:id', controller.updateLastEditDetails);
+
 router.get('/listdb', controller.listDBRoute);
 
 router.get('/orders', controller.getOrders);
