@@ -7,7 +7,8 @@ const table = {
     transactions: 'transactions',
     payments: 'payments',
     payee: 'payee',
-    users: 'users'
+    users: 'users',
+    commit: 'commit'
 }
 
 async function listDBRoute(req, res) {
@@ -230,6 +231,23 @@ async function editPayee(req, res) {
     } else return res.status(201).json(result)
 }
 
+async function getLastEditDetails(req, res) {
+    const result = await mongo.getAllRecord(table.commit);
+    if (!result) return res.json({});
+    if (result.error) {
+        return res.status(500).json(result);
+    } else return res.status(200).json(result)
+}
+
+async function updateLastEditDetails(req, res) {
+    const query = { _id: req.params.id }
+    const result = await mongo.updateRecord(table.commit, query, req.body);
+    if (!result) return res.json({});
+    if (result.error) {
+        return res.status(500).json(result);
+    } else return res.status(201).json(result)
+}
+
 module.exports = {
     listDBRoute,
     getOrder,
@@ -255,5 +273,7 @@ module.exports = {
     getPayees,
     addPayee,
     editPayee,
-    deletePayee
+    deletePayee,
+    getLastEditDetails,
+    updateLastEditDetails
 }
