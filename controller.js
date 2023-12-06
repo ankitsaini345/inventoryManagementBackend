@@ -37,7 +37,8 @@ async function getDistictOrder(req, res) {
 }
 
 async function getOrders(req, res) {
-    const result = await mongo.getAllRecord(table.orders, {}, { date: -1 });
+    const limit = req.query.limit || 0 ;
+    const result = await mongo.getAllRecord(table.orders, {}, { date: -1 }, limit);
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
@@ -126,7 +127,8 @@ async function getTxn(req, res) {
     } else return res.status(200).json(result)
 }
 async function getTxns(req, res) {
-    const result = await mongo.getAllRecord(table.transactions, {}, { txnDate: -1 });
+    const limit = req.query.limit || 0 ;
+    const result = await mongo.getAllRecord(table.transactions, {}, { txnDate: -1 }, limit);
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
@@ -160,7 +162,8 @@ async function editTxn(req, res) {
 }
 
 async function getPayments(req, res) {
-    const result = await mongo.getAllRecord(table.payments, {}, { date: -1 });
+    const limit = req.query.limit || 0 ;
+    const result = await mongo.getAllRecord(table.payments, {}, { date: -1 }, limit);
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
