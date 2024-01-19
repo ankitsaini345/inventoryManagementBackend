@@ -70,7 +70,7 @@ async function insertOneRecord(table, data) {
     try {
         client = await client.connect();
         const res = await client.db(dbName).collection(table).insertOne(data);
-        console.log(res);
+        // console.log(res);
         return res;
     } catch (err) {
         console.log('Error in insertOneRecord', err);
@@ -98,7 +98,7 @@ async function deleteOneRecord(table, query) {
     try {
         client = await client.connect();
         const res = await client.db(dbName).collection(table).deleteOne(query)
-        console.log(res);
+        // console.log(res);
         return res;
     } catch (err) {
         console.log('Error in deleteOneRecord', err);

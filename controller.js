@@ -38,8 +38,8 @@ async function getDistictOrder(req, res) {
 }
 
 async function getOrders(req, res) {
-    const limit = req.query.limit || 0 ;
-    const result = await mongo.getAllRecord(table.orders, {}, { date: -1 }, limit);
+    const limit = +req.query.limit || 0 ;
+    const result = await mongo.getAllRecord(table.orders, {}, { _id: -1 }, limit);
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
@@ -65,7 +65,7 @@ async function deleteOrder(req, res) {
 
 async function editOrder(req, res) {
     const query = { _id: req.params.id }
-    console.log(query);
+    // console.log(query);
     const result = await mongo.updateRecord(table.orders, query, req.body);
     if (!result) return res.json({});
     if (result.error) {
@@ -128,8 +128,8 @@ async function getTxn(req, res) {
     } else return res.status(200).json(result)
 }
 async function getTxns(req, res) {
-    const limit = req.query.limit || 0 ;
-    const result = await mongo.getAllRecord(table.transactions, {}, { txnDate: -1 }, limit);
+    const limit = +req.query.limit || 0 ;
+    const result = await mongo.getAllRecord(table.transactions, {}, { _id: -1 }, limit);
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
@@ -163,8 +163,8 @@ async function editTxn(req, res) {
 }
 
 async function getPayments(req, res) {
-    const limit = req.query.limit || 0 ;
-    const result = await mongo.getAllRecord(table.payments, {}, { date: -1 }, limit);
+    const limit = +req.query.limit || 0 ;
+    const result = await mongo.getAllRecord(table.payments, {}, { _id: -1 }, limit);
     if (!result) return res.json({});
     if (result.error) {
         return res.status(500).json(result);
